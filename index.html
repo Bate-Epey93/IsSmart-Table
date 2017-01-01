@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" ng-app="IsSmartApp">
+
+<head>
+
+    <meta charset="utf-8">
+    <script src="angular.min.js"></script>
+    <title>IsSmart Checker</title>
+</head>
+
+<body ng-controller="MainCtrl as ctrl">
+
+<fieldset><legend>Smart Names</legend>
+<form>
+    First Name: <input type="text" name="fName"  ng-model="ctrl.user.firstName">
+    <br/>
+    <br/>
+    Last Name: <input type="text" name="lName"  ng-model="ctrl.user.lastName">
+    <br/>
+    <br/>
+    <input type="submit" value="Add" ng-click="ctrl.AddName()">
+
+</form>
+</fieldset>
+
+
+    <table id="mytab">
+
+        <thead>
+            
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>IsSmart</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in ctrl.userlist">
+
+            <td> {{user.firstName}} </td>
+            <td> {{user.lastName}} </td>
+            <td><input type="checkbox"  ng-model="user.selected" ng-click="ctrl.taskcheck()"></td> 
+            
+        </tr>
+        <tbody>
+    </table>
+
+    <span ng-bind="ctrl.anyselected"></span>
+
+  
+</body>
+
+<script>
+
+    angular.module('IsSmartApp',[])
+    .controller('MainCtrl',function(){
+
+        var self=this;
+        self.anyselected=false;
+        self.userlist = [
+
+            {
+
+                firstName: "Jane",
+                lastName: "Doe",
+                selected: false
+                
+            },
+
+            {
+
+                firstName: "John",
+                lastName: "Doe",
+                selected: false
+            },
+
+            {
+
+                firstName: "Bill",
+                lastName: "Acha",
+                selected: false
+                
+            },
+
+            {
+
+                firstName: "Glenn",
+                lastName: "Tiayon",
+                selected: false
+                
+            },
+
+
+
+        ];
+
+        self.taskcheck = function(){
+
+            self.anyselected = false;
+            
+
+            for (i = 0; i<self.userlist.length; i++){
+               
+                if (self.userlist[i].selected){
+
+                    self.anyselected = true; 
+                    break;
+                }
+            }
+
+        }
+
+
+        self.AddName = function() {
+
+            self.userlist.push(self.user);
+            self.user = {
+
+            };
+        }
+    });
+   
+</script>
+</html>
